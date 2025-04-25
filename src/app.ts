@@ -30,12 +30,27 @@ class App {
     this.app.use(morgan('dev'));
   }
 
-  private initializeRoutes(): void {
-    this.app.use('/api/auth', authRoutes);
-    this.app.use('/api/players', playerRoutes);
-    this.app.use('/api/wallet', walletRoutes);
-    this.app.use('/api/referrals', referralRoutes);
-  }
+  // Inside src/app.ts in the initializeRoutes() method
+
+private initializeRoutes(): void {
+this.app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Player Referral API is running',
+    endpoints: {
+      auth: '/api/auth',
+      players: '/api/players',
+      wallet: '/api/wallet',
+      referrals: '/api/referrals'
+    }
+  });
+});
+
+  this.app.use('/api/auth', authRoutes);
+  this.app.use('/api/players', playerRoutes);
+  this.app.use('/api/wallet', walletRoutes);
+  this.app.use('/api/referrals', referralRoutes);
+}
 
   private initializeErrorHandling(): void {
     this.app.use(errorMiddleware);
