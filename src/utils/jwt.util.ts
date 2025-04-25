@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 export const signToken = (
   payload: string | object | Buffer,
   secret: string, 
-  options?: jwt.SignOptions
+  options?: {expiresIn?: string | number}
 ): string => {
   // Using any to bypass TypeScript's strict checking for jwt.sign
   return jwt.sign(payload, secret as any, options as any);

@@ -5,7 +5,7 @@ import { Wallet } from '../models/wallet.model';
 import { IdGenerator } from '../utils/id.generator';
 import { BadRequestException, ConflictException, UnauthorizedException } from '../utils/error.handler';
 import { ReferralService } from './referral.service';
-import { signToken } from '../utils/jwt.util'; // Import our wrapper
+import { signToken } from '../utils/jwt.util';
 
 export class AuthService {
   private referralService: ReferralService;
@@ -108,7 +108,7 @@ export class AuthService {
       phoneNumber: player.phoneNumber,
     };
     
-    // Use our wrapper function instead of direct jwt.sign
+    // Use our wrapper function to bypass TypeScript's strict typing requirements
     return signToken(
       payload,
       JWT_SECRET,
