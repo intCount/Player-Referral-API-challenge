@@ -4,6 +4,7 @@ import { WalletController } from '../controllers/wallet.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { validationMiddleware } from '../middlewares/validation.middleware';
 import { Validator } from '../utils/validator';
+import { CustomRequestHandler } from '../interfaces/express.interface';
 
 const router = Router();
 const walletController = new WalletController();
@@ -11,14 +12,14 @@ const walletController = new WalletController();
 // Get wallet balance
 router.get(
   '/',
-  authMiddleware,
+  authMiddleware as CustomRequestHandler,
   walletController.getWallet
 );
 
 // Deposit to wallet
 router.post(
   '/deposit',
-  authMiddleware,
+  authMiddleware as CustomRequestHandler,
   validationMiddleware(Validator.validateDeposit),
   walletController.deposit
 );
@@ -26,7 +27,7 @@ router.post(
 // Withdraw from wallet
 router.post(
   '/withdraw',
-  authMiddleware,
+  authMiddleware as CustomRequestHandler,
   validationMiddleware(Validator.validateWithdrawal),
   walletController.withdraw
 );
@@ -34,7 +35,7 @@ router.post(
 // Get transaction history
 router.get(
   '/transactions',
-  authMiddleware,
+  authMiddleware as CustomRequestHandler,
   walletController.getTransactionHistory
 );
 

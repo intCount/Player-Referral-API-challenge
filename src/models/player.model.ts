@@ -1,6 +1,5 @@
 // src/models/player.model.ts
 import mongoose, { Schema, Document } from 'mongoose';
-import { IPlayer } from '../interfaces/player.interface';
 import bcrypt from 'bcrypt';
 
 export interface IPlayerDocument extends Document {

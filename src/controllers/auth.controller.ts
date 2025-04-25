@@ -12,7 +12,8 @@ export class AuthController {
 
   public register = async (req: RequestWithPlayer, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const ipAddress = req.ip || '';
+      // Use clientIp if available from our custom middleware, fallback to standard ip
+      const ipAddress = (req as any).clientIp || req.ip || '';
       const originUrl = req.headers.origin || '';
       
       const { player, token } = await this.authService.register(req.body, ipAddress, originUrl);
@@ -55,8 +56,3 @@ export class AuthController {
     }
   };
 }
-
-
-
-
-

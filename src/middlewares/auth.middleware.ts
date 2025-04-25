@@ -13,7 +13,7 @@ export interface RequestWithPlayer extends Request {
   };
 }
 
-export const authMiddleware = async (req: RequestWithPlayer, res: Response, next: NextFunction): Promise<void> => {
+export const authMiddleware = async (req: RequestWithPlayer, _res: Response, next: NextFunction): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
     

@@ -4,6 +4,7 @@ import { AuthController } from '../controllers/auth.controller';
 import { validationMiddleware } from '../middlewares/validation.middleware';
 import { Validator } from '../utils/validator';
 import { requestMiddleware } from '../middlewares/request.middleware';
+import { CustomRequestHandler } from '../interfaces/express.interface';
 
 const router = Router();
 const authController = new AuthController();
@@ -11,7 +12,7 @@ const authController = new AuthController();
 // Register a new player
 router.post(
   '/register',
-  requestMiddleware,
+  requestMiddleware as CustomRequestHandler,
   validationMiddleware(Validator.validatePlayerRegistration),
   authController.register
 );
@@ -24,8 +25,3 @@ router.post(
 );
 
 export default router;
-
-
-
-
-

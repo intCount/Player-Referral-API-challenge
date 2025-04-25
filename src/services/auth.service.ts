@@ -108,6 +108,7 @@ export class AuthService {
       phoneNumber: player.phoneNumber,
     };
     
+    // Fix: Properly specify the JWT sign parameters
     return jwt.sign(
       payload,
       JWT_SECRET,
