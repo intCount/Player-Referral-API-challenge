@@ -52,60 +52,6 @@ export const authMiddleware = async (req: RequestWithPlayer, res: Response, next
   }
 };
 
-// src/middlewares/validation.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { ValidationResult } from 'joi';
-import { BadRequestException } from '../utils/error.handler';
 
-export const validationMiddleware = (validator: (data: any) => ValidationResult) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    const { error } = validator(req.body);
-    
-    if (error) {
-      const message = error.details.map((detail) => detail.message).join(', ');
-      next(new BadRequestException(message));
-    } else {
-      next();
-    }
-  };
-};
 
-// src/middlewares/request.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { RequestWithPlayer } from './auth.middleware';
 
-export const requestMiddleware = (req: RequestWithPlayer, res: Response, next: NextFunction): void => {
-  // Capture IP address
-  req.ip = req.ip || req.connection.remoteAddress || '';
-  
-  // Capture origin URL
-  req.headers.origin = req.headers.origin || req.headers.referer || '';
-  
-  next();
-};
-
-// src/middlewares/error.middleware.ts
-import { Request, Response, NextFunction } from 'express';
-import { IHttpException } from '../interfaces/error.interface';
-import { logger } from '../utils/logger';
-
-export const errorMiddleware = (
-  error: IHttpException,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  const status = error.status || 500;
-  const message = error.message || 'Something went wrong';
-  
-  logger.error(`[${status}] ${message}`);
-  
-  if (process.env.NODE_ENV === 'development') {
-    logger.error(error.stack || '');
-  }
-  
-  res.status(status).json({
-    status,
-    message,
-  });
-};
