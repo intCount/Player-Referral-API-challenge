@@ -1,11 +1,11 @@
 // src/services/auth.service.ts
-import jwt from 'jsonwebtoken';
 import { IPlayerRegisterDto, IPlayerLoginDto } from '../interfaces/player.interface';
 import { Player, IPlayerDocument } from '../models/player.model';
 import { Wallet } from '../models/wallet.model';
 import { IdGenerator } from '../utils/id.generator';
 import { BadRequestException, ConflictException, UnauthorizedException } from '../utils/error.handler';
 import { ReferralService } from './referral.service';
+import { signToken } from '../utils/jwt.util'; // Import our wrapper
 
 export class AuthService {
   private referralService: ReferralService;
@@ -108,8 +108,8 @@ export class AuthService {
       phoneNumber: player.phoneNumber,
     };
     
-    // Fix the JWT sign call with proper typing
-    return jwt.sign(
+    // Use our wrapper function instead of direct jwt.sign
+    return signToken(
       payload,
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
