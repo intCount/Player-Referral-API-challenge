@@ -5,6 +5,7 @@ import { authMiddleware } from '../middlewares/auth.middleware';
 import { validationMiddleware } from '../middlewares/validation.middleware';
 import { Validator } from '../utils/validator';
 import { CustomRequestHandler } from '../interfaces/express.interface';
+import { asHandler } from '../utils/request-handler.util';
 
 const router = Router();
 const walletController = new WalletController();

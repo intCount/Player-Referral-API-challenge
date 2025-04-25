@@ -111,7 +111,7 @@ export class AuthService {
     // Fix: Properly specify the JWT sign parameters
     return jwt.sign(
       payload,
-      JWT_SECRET,
+      JWT_SECRET as string,
       { expiresIn: JWT_EXPIRES_IN }
     );
   }
