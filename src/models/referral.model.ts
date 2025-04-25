@@ -1,6 +1,6 @@
 // src/models/referral.model.ts
 import mongoose, { Schema, Document } from 'mongoose';
-import { IReferral, IDepositBonus } from '../interfaces/referral.interface';
+import { IReferral } from '../interfaces/referral.interface';
 
 export interface IReferralDocument extends IReferral, Document {}
 

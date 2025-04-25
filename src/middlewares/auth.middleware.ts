@@ -5,8 +5,7 @@ import { UnauthorizedException } from '../utils/error.handler';
 import { Player } from '../models/player.model';
 
 export interface RequestWithPlayer extends Request {
-  player?: any;
-  ip?: string;
+  player: any;
   headers: {
     authorization?: string;
     origin?: string;
@@ -51,7 +50,3 @@ export const authMiddleware = async (req: RequestWithPlayer, res: Response, next
     }
   }
 };
-
-
-
-

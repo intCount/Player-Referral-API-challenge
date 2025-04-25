@@ -103,18 +103,15 @@ export class AuthService {
     const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
     const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
     
+    const payload = {
+      id: player.id,
+      phoneNumber: player.phoneNumber,
+    };
+    
     return jwt.sign(
-      {
-        id: player.id,
-        phoneNumber: player.phoneNumber,
-      },
+      payload,
       JWT_SECRET,
-      {
-        expiresIn: JWT_EXPIRES_IN,
-      }
+      { expiresIn: JWT_EXPIRES_IN }
     );
   }
 }
-
-
-

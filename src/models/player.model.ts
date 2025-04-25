@@ -3,7 +3,17 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { IPlayer } from '../interfaces/player.interface';
 import bcrypt from 'bcrypt';
 
-export interface IPlayerDocument extends IPlayer, Document {
+export interface IPlayerDocument extends Document {
+  id: string;
+  name: string;
+  phoneNumber: string;
+  password: string;
+  ipAddress: string;
+  originUrl: string;
+  referralCode: string;
+  referredBy?: string;
+  createdAt: Date;
+  updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -69,5 +79,3 @@ playerSchema.methods.comparePassword = async function (candidatePassword: string
 };
 
 export const Player = mongoose.model<IPlayerDocument>('Player', playerSchema);
-
-
