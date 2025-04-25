@@ -108,10 +108,10 @@ export class AuthService {
       phoneNumber: player.phoneNumber,
     };
     
-    // Fix: Properly specify the JWT sign parameters
+    // Fix the JWT sign call with proper typing
     return jwt.sign(
       payload,
-      JWT_SECRET as string,
+      JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
     );
   }

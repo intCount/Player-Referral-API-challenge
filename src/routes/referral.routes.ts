@@ -2,8 +2,8 @@
 import { Router } from 'express';
 import { ReferralController } from '../controllers/referral.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
-import { CustomRequestHandler } from '../interfaces/express.interface';
-import { asHandler } from '../utils/request-handler.util';
+import { requestMiddleware } from '../middlewares/request.middleware';
+import { asHandler, asRequestWithPlayerHandler } from '../utils/request-handler.util';
 
 const router = Router();
 const referralController = new ReferralController();
@@ -11,22 +11,25 @@ const referralController = new ReferralController();
 // Generate referral link
 router.get(
   '/link',
+  asHandler(authMiddleware),
   asHandler(requestMiddleware),
-  referralController.generateReferralLink
+  asRequestWithPlayerHandler(referralController.generateReferralLink)
 );
 
 // Get referred players
 router.get(
   '/players',
+  asHandler(authMiddleware),
   asHandler(requestMiddleware),
-  referralController.getReferredPlayers
+  asRequestWithPlayerHandler(referralController.getReferredPlayers)
 );
 
 // Get referral stats
 router.get(
   '/stats',
+  asHandler(authMiddleware),
   asHandler(requestMiddleware),
-  referralController.getReferralStats
+  asRequestWithPlayerHandler(referralController.getReferralStats)
 );
 
 export default router;
